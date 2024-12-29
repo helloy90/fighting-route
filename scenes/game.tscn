@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bya6bj6ooudby"]
+
+[ext_resource type="PackedScene" uid="uid://ckaigexuyugj3" path="res://levels/basement.tscn" id="1_cmujf"]
+[ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://objects/player.tscn" id="2_13pr1"]
+[ext_resource type="PackedScene" uid="uid://dkhuf35gvpn4r" path="res://objects/lamp.tscn" id="3_stwvt"]
+
+[node name="Game" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="basement" parent="World" instance=ExtResource("1_cmujf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4992, -0.49332, 0.58872)
+
+[node name="Player" parent="World" instance=ExtResource("2_13pr1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.4187, 2.04748, -70.2026)
+
+[node name="lamp" parent="World" instance=ExtResource("3_stwvt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6013, 12.5719, -76.9636)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
