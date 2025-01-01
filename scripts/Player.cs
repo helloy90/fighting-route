@@ -9,14 +9,19 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public float JumpVelocity { get; set; } = 10f;
 
+
 	[Export]
 	public float RotationSpeed { get; set; } = 0.005f;
 
 	private Vector3 _targetVelocity;
 
+	private float _gravity;
+
 	public override void _Ready()
 	{
 		_targetVelocity = Vector3.Zero;
+		_gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -45,25 +50,32 @@ public partial class Player : CharacterBody3D
 			_targetVelocity.Y = JumpVelocity;
 		}
 
-		if (direction != Vector3.Zero)
+		if (direction.Length() > 1e-9)
 		{
 			direction = direction.Rotated(Vector3.Up, Rotation.Y).Normalized();
 			_targetVelocity.X = direction.X * Speed;
 			_targetVelocity.Z = direction.Z * Speed;
-		} else {
-			_targetVelocity.X = Mathf.MoveToward(_targetVelocity.X, 0, Speed);
-			_targetVelocity.Z = Mathf.MoveToward(_targetVelocity.Z, 0, Speed);
+		}
+		else
+		{
+			_targetVelocity.X = Mathf.MoveToward(_targetVelocity.X, 0, Speed / 2);
+			_targetVelocity.Z = Mathf.MoveToward(_targetVelocity.Z, 0, Speed / 2);
 		}
 
 		// Vertical velocity
 		if (!IsOnFloor()) // If in the air, fall towards the floor. Literally gravity
 		{
-			_targetVelocity.Y -= JumpVelocity * (float)delta;
+			_targetVelocity.Y -= _gravity * (float)delta;
 		}
 
 		// Moving the character
 		Velocity = _targetVelocity;
 		MoveAndSlide();
+		// for (int i = 0; i < GetSlideCollisionCount(); i++)
+		// {
+		// 	var collision = GetSlideCollision(i);
+		// 	GD.Print("I collided with ", collision, ", total collisions - ", GetSlideCollisionCount());
+		// }
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
