@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6mub1b0jnd46"]
+
+[ext_resource type="PackedScene" uid="uid://bu1kq4o10783v" path="res://models/test_location/test_location.glb" id="1_4oa8g"]
+
+[sub_resource type="Sky" id="Sky_y3qou"]
+
+[sub_resource type="Environment" id="Environment_2rpb8"]
+background_energy_multiplier = 10.0
+sky = SubResource("Sky_y3qou")
+ambient_light_color = Color(3.65794e-06, 0.7452, 0.929427, 1)
+ambient_light_energy = 1.1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7ppkm"]
+
+[sub_resource type="Compositor" id="Compositor_ngv2m"]
+
+[node name="test_location" instance=ExtResource("1_4oa8g")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_2rpb8")
+camera_attributes = SubResource("CameraAttributesPractical_7ppkm")
+compositor = SubResource("Compositor_ngv2m")

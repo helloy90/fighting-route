@@ -1,22 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=4 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://objects/player.tscn" id="2_13pr1"]
-[ext_resource type="PackedScene" uid="uid://c5um8j4i6fn8r" path="res://levels/loc_1_room_1.tscn" id="2_relb6"]
-[ext_resource type="PackedScene" uid="uid://dkhuf35gvpn4r" path="res://objects/lamp.tscn" id="3_stwvt"]
+[ext_resource type="PackedScene" uid="uid://b6mub1b0jnd46" path="res://levels/test_location.tscn" id="2_t0bld"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dmgks")
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="loc1room1" parent="World" instance=ExtResource("2_relb6")]
+[node name="test_location" parent="World" instance=ExtResource("2_t0bld")]
 
 [node name="Player" parent="World" instance=ExtResource("2_13pr1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44108, -2.61742)
-
-[node name="lamp" parent="World" instance=ExtResource("3_stwvt")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -11.3821, 3.85561, -5.09126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73719, -2.61742)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
