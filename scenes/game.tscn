@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=6 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://objects/player.tscn" id="2_13pr1"]
 [ext_resource type="PackedScene" uid="uid://b6mub1b0jnd46" path="res://levels/test_location.tscn" id="2_t0bld"]
+[ext_resource type="PackedScene" uid="uid://mk5jjg6qcfq0" path="res://objects/flashlight.tscn" id="4_mw8je"]
+[ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dmgks")
@@ -13,6 +15,12 @@ script = ExtResource("1_dmgks")
 
 [node name="Player" parent="World" instance=ExtResource("2_13pr1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73719, -2.61742)
+
+[node name="flashlight" parent="World" instance=ExtResource("4_mw8je")]
+transform = Transform3D(-0.998619, 0, -0.0525451, 0, 1, 0, 0.0525451, 0, -0.998619, 0, 2.00191, 2.61085)
+
+[node name="gun1" parent="World" instance=ExtResource("5_5ubpc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74677, -10.0234)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

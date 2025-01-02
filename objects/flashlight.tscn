@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://mk5jjg6qcfq0"]
+
+[ext_resource type="PackedScene" uid="uid://dcbvuan5uf6hj" path="res://models/inventory/flashlight1.gltf" id="1_mcg3q"]
+
+[node name="flashlight" type="Node3D"]
+
+[node name="flashlight1" parent="." instance=ExtResource("1_mcg3q")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="flashlight1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.226475)
+light_energy = 5.687
+spot_range = 7.51179
+spot_angle = 17.484

@@ -5,10 +5,13 @@
 [sub_resource type="Sky" id="Sky_y3qou"]
 
 [sub_resource type="Environment" id="Environment_2rpb8"]
-background_energy_multiplier = 10.0
+background_mode = 1
+background_color = Color(3.60981e-08, 0.132674, 0.166647, 1)
+background_energy_multiplier = 1.18
 sky = SubResource("Sky_y3qou")
-ambient_light_color = Color(3.65794e-06, 0.7452, 0.929427, 1)
-ambient_light_energy = 1.1
+ambient_light_source = 2
+ambient_light_color = Color(0.685915, 0.789572, 0.848611, 1)
+ambient_light_energy = 0.09
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7ppkm"]
 

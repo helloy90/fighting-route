@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1goh5vv2ek26"]
+
+[ext_resource type="PackedScene" uid="uid://dwtuno7oppsia" path="res://models/weapons/gun1.gltf" id="1_hlfpy"]
+
+[node name="gun1" type="Node3D"]
+
+[node name="gun1" parent="." instance=ExtResource("1_hlfpy")]
