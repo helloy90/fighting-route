@@ -8,16 +8,18 @@
 radius = 0.3
 height = 1.8
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CameraController")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 floor_block_on_wall = false
 script = ExtResource("1_bhrlg")
 Speed = 7.0
-JumpVelocity = 3.0
+JumpVelocity = 10.0
+CameraController = NodePath("CameraController")
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607871, 0)
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
