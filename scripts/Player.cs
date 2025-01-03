@@ -46,7 +46,7 @@ public partial class Player : CharacterBody3D
 			_targetVelocity.Y -= Gravity;
 		}
 
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		if (Input.IsActionPressed("jump") && IsOnFloor())
 		{
 			_targetVelocity.Y = JumpVelocity;
 		}

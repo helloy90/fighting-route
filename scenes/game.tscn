@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
-[ext_resource type="PackedScene" uid="uid://mk5jjg6qcfq0" path="res://objects/flashlight.tscn" id="4_mw8je"]
-[ext_resource type="PackedScene" uid="uid://bm8wp4xv3iay1" path="res://levels/test_location2.tscn" id="5_0q6y8"]
+[ext_resource type="PackedScene" path="res://objects/flashlight.tscn" id="4_mw8je"]
+[ext_resource type="PackedScene" uid="uid://b7mfgjpsitrc" path="res://levels/test_location2.tscn" id="5_0q6y8"]
 [ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
 
 [node name="Game" type="Node3D"]
