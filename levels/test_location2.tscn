@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7mfgjpsitrc"]
+
+[ext_resource type="PackedScene" uid="uid://cpn8qfrbmv0ub" path="res://models/test_location2/test_location.gltf" id="1_28suy"]
+
+[node name="test_location" instance=ExtResource("1_28suy")]
