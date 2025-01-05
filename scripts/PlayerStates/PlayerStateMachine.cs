@@ -6,9 +6,9 @@ public partial class PlayerStateMachine : Node
 {
 	[Export]
 	public State currentState;
-	private Dictionary<string, State> _states = new(){};
+	private Dictionary<string, State> _states = new() { };
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		foreach (var child in GetChildren())
 		{
@@ -22,6 +22,7 @@ public partial class PlayerStateMachine : Node
 				GD.PushWarning("State machine contains incompatible child node!");
 			}
 		}
+		await ToSignal(Owner, SignalName.Ready);
 		currentState.Enter();
 	}
 
@@ -37,15 +38,20 @@ public partial class PlayerStateMachine : Node
 		currentState.PhysicsUpdate(delta);
 	}
 
-	private void OnChildTransition(string newStateName) {
+	private void OnChildTransition(string newStateName)
+	{
 		var newState = _states[newStateName];
-		if (newState != null) {
-			if (newState != currentState) {
+		if (newState != null)
+		{
+			if (newState != currentState)
+			{
 				currentState.Exit();
 				newState.Enter();
 				currentState = newState;
 			}
-		} else {
+		}
+		else
+		{
 			GD.PushError("State does not exit!");
 		}
 	}
