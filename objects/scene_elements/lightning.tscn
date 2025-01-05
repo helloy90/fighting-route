@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://w8605v1po8b7"]
+
+[ext_resource type="Shader" path="res://shaders/lightning.gdshader" id="1_bw6bt"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_8wb5u"]
+size = Vector3(0.01, 0.01, 2)
+subdivide_depth = 40
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pmft6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m3rxw"]
+noise = SubResource("FastNoiseLite_pmft6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rggma"]
+render_priority = 0
+shader = ExtResource("1_bw6bt")
+shader_parameter/scale = 10.0
+shader_parameter/time = 0.006
+shader_parameter/noise = SubResource("NoiseTexture2D_m3rxw")
+
+[node name="lightning" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_8wb5u")
+surface_material_override/0 = SubResource("ShaderMaterial_rggma")
