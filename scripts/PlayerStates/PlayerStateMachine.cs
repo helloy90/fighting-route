@@ -30,7 +30,7 @@ public partial class PlayerStateMachine : Node
 	public override void _Process(double delta)
 	{
 		currentState.Update(delta);
-		GD.Print("Current state - ", currentState.Name);
+		// GD.Print("Current state - ", currentState.Name);
 	}
 
 	public override void _PhysicsProcess(double delta)

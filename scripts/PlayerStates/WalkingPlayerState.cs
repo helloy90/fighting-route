@@ -19,8 +19,7 @@ public partial class WalkingPlayerState : PlayerMovementState
 		{
 			EmitSignal(SignalName.Transition, "IdlePlayerState");
 		}
-
-		if (Input.IsActionPressed("sprint") && player.IsOnFloor())
+		else if (Input.IsActionPressed("sprint") && player.IsOnFloor())
 		{
 			EmitSignal(SignalName.Transition, "SprintingPlayerState");
 		}

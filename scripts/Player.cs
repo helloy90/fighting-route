@@ -70,7 +70,11 @@ public partial class Player : CharacterBody3D
 
 	public void UpdateGravity(double delta)
 	{
-		_targetVelocity.Y -= (float)(_gravity * delta);
+		// possible fix for movement lock
+		if (!IsOnFloor())
+		{
+			_targetVelocity.Y -= (float)(_gravity * delta);
+		}
 	}
 
 	public void UpdateInput(float speed, float acceleration, float deceleration) // maybe change float -> double later

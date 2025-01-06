@@ -16,8 +16,10 @@ public partial class Game : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Input.IsActionPressed("exit(DEBUG)")) {
-			GetTree().Quit();
+		if (Input.IsActionPressed("exit(DEBUG)"))
+		{
+			// GetTree().Quit();
+			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
 	}
 }
