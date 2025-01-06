@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0sbfefy80j2q"]
+
+[ext_resource type="Script" path="res://scripts/inventory/inventory_objects/inventory_object.cs" id="1_8qrrx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vq5cv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgswv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1g6n3"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.597346, 0.59735, 1)
+
+[node name="inventory_object" type="Area3D"]
+script = ExtResource("1_8qrrx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_vq5cv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lgswv")
+surface_material_override/0 = SubResource("StandardMaterial3D_1g6n3")

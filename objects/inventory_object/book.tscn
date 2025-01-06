@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b741bvvtn8ik5"]
+
+[ext_resource type="PackedScene" uid="uid://c0sbfefy80j2q" path="res://objects/inventory_object/inventory_object.tscn" id="1_wklcw"]
+
+[node name="book" type="Node3D"]
+
+[node name="inventory_object" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_wklcw")]
+transform = Transform3D(0.999941, 0.0108383, 0, -0.0108383, 0.999941, 0, 0, 0, 1, -0.11773, -0.200948, -0.152864)
+label = "книга"
+description = "Книга"
+parent = NodePath("..")

@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqelnq1i47t6d"]
+
+[ext_resource type="Shader" path="res://shaders/objects/lightning.gdshader" id="1_uttj7"]
+[ext_resource type="PackedScene" uid="uid://dq6gb1ye6lcff" path="res://models/scene_elements_test/body_for_lightning_lamp.gltf" id="2_ea5bk"]
+[ext_resource type="Script" path="res://scripts/objects/lightning_lamp.cs" id="2_j57eq"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_g04ju"]
+size = Vector3(0.01, 0.01, 2)
+subdivide_depth = 40
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wubmw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m3rxw"]
+noise = SubResource("FastNoiseLite_wubmw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m356"]
+render_priority = 0
+shader = ExtResource("1_uttj7")
+shader_parameter/scale = 10.0
+shader_parameter/position = 1.0
+shader_parameter/time = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_m3rxw")
+
+[sub_resource type="Animation" id="Animation_klqip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:surface_material_override/0:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wsgrj"]
+resource_name = "work_lamp"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:surface_material_override/0:shader_parameter/time")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ldhnp"]
+_data = {
+"RESET": SubResource("Animation_klqip"),
+"work_lamp": SubResource("Animation_wsgrj")
+}
+
+[node name="lightning_lamp" type="Node3D"]
+script = ExtResource("2_j57eq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_g04ju")
+surface_material_override/0 = SubResource("ShaderMaterial_0m356")
+
+[node name="body_for_lightning_lamp" parent="." instance=ExtResource("2_ea5bk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../MeshInstance3D")
+libraries = {
+"": SubResource("AnimationLibrary_ldhnp")
+}

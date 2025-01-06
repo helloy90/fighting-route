@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dl2l6aox40da3"]
+[gd_scene load_steps=10 format=3 uid="uid://dl2l6aox40da3"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_bhrlg"]
+[ext_resource type="Script" path="res://scripts/interaction/InteractRay.cs" id="2_ihuyd"]
 [ext_resource type="Script" path="res://scripts/PlayerStates/PlayerStateMachine.cs" id="2_mmhn8"]
 [ext_resource type="Script" path="res://scripts/PlayerStates/IdlePlayerState.cs" id="3_dq24r"]
 [ext_resource type="Script" path="res://scripts/PlayerStates/WalkingPlayerState.cs" id="4_ppss3"]
 [ext_resource type="Script" path="res://scripts/PlayerStates/SprintingPlayerState.cs" id="5_em66i"]
+[ext_resource type="Script" path="res://scripts/inventory/Inventory.cs" id="7_3a5os"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_247jx"]
 
@@ -16,12 +18,23 @@ height = 1.8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 floor_block_on_wall = false
 script = ExtResource("1_bhrlg")
-CameraController = NodePath("CameraController")
+CameraController = NodePath("HEAD")
 
-[node name="CameraController" type="Node3D" parent="."]
+[node name="HEAD" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraController"]
+[node name="Camera3D" type="Camera3D" parent="HEAD"]
+
+[node name="InteractRay" type="RayCast3D" parent="HEAD"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.037298)
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+script = ExtResource("2_ihuyd")
+
+[node name="Prompt" type="Label" parent="HEAD/InteractRay"]
+offset_right = 1040.0
+offset_bottom = 280.0
+text = "Привет мир"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_247jx")
@@ -41,3 +54,14 @@ script = ExtResource("4_ppss3")
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_em66i")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("7_3a5os")
+
+[node name="InfoBag" type="Label" parent="Inventory"]
+offset_left = 2.0
+offset_top = 521.0
+offset_right = 334.0
+offset_bottom = 647.0
+size_flags_horizontal = 0
+size_flags_vertical = 8

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://l1kepw8uwgp0"]
+[gd_scene load_steps=5 format=3 uid="uid://l1kepw8uwgp0"]
 
 [ext_resource type="PackedScene" uid="uid://ds3f0ho8mbiku" path="res://models/scene_elements_test/wall1.gltf" id="1_dkweu"]
 [ext_resource type="PackedScene" uid="uid://dppvfmmf3ydvv" path="res://models/scene_elements_test/button1.gltf" id="2_qx4ib"]
+[ext_resource type="PackedScene" uid="uid://dqelnq1i47t6d" path="res://objects/scene_elements/lightning_lamp.tscn" id="3_2yoe1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cml7j"]
 size = Vector3(0.384644, 0.522522, 0.526733)
@@ -20,3 +21,6 @@ shape = SubResource("BoxShape3D_cml7j")
 
 [node name="button1" parent="Area3D" instance=ExtResource("2_qx4ib")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.279976, 0.994513, -0.178004)
+
+[node name="lightning_lamp" parent="." instance=ExtResource("3_2yoe1")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.383815, 3.67618, -0.231119)

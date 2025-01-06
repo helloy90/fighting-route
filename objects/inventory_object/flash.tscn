@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://2itsfax8yr2y"]
+
+[ext_resource type="PackedScene" uid="uid://c0sbfefy80j2q" path="res://objects/inventory_object/inventory_object.tscn" id="1_rsot8"]
+
+[node name="Flash" type="Node3D"]
+
+[node name="inventory_object" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_rsot8")]
+label = "Тестовый куб"
+description = "Тестовый куб"
+parent = NodePath("..")
