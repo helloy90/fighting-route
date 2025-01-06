@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl2l6aox40da3"]
+[gd_scene load_steps=11 format=3 uid="uid://dl2l6aox40da3"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_bhrlg"]
 [ext_resource type="Script" path="res://scripts/interaction/InteractRay.cs" id="2_ihuyd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/PlayerStates/WalkingPlayerState.cs" id="4_ppss3"]
 [ext_resource type="Script" path="res://scripts/PlayerStates/SprintingPlayerState.cs" id="5_em66i"]
 [ext_resource type="Script" path="res://scripts/inventory/Inventory.cs" id="7_3a5os"]
+[ext_resource type="Script" path="res://scripts/PlayerStates/JumpingPlayerState.cs" id="7_on00m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_247jx"]
 
@@ -54,6 +55,9 @@ script = ExtResource("4_ppss3")
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("5_em66i")
+
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_on00m")
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("7_3a5os")

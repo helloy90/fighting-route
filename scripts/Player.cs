@@ -68,6 +68,10 @@ public partial class Player : CharacterBody3D
 		_rotationInput = Vector2.Zero;
 	}
 
+	public void ReplaceVelocity(Vector3 value) {
+		_targetVelocity = value;
+	}
+
 	public void UpdateGravity(double delta)
 	{
 		// possible fix for movement lock

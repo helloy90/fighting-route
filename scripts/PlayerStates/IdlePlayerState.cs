@@ -16,6 +16,11 @@ public partial class IdlePlayerState : PlayerMovementState
 		{
 			EmitSignal(SignalName.Transition, "WalkingPlayerState");
 		}
+		
+		if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
+		{
+			EmitSignal(SignalName.Transition, "JumpingPlayerState");
+		}
 	}
 
 	public override void PhysicsUpdate(double delta)
