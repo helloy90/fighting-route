@@ -45,6 +45,7 @@ public partial class PlayerStateMachine : Node
 		{
 			if (newState != currentState)
 			{
+				GD.Print(currentState.Name, " - current state, ", newState.Name, " - new state");
 				currentState.Exit();
 				newState.Enter();
 				currentState = newState;
@@ -52,7 +53,7 @@ public partial class PlayerStateMachine : Node
 		}
 		else
 		{
-			GD.PushError("State does not exit!");
+			GD.PushError("State ", newStateName, " does not exit!");
 		}
 	}
 }

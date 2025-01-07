@@ -4,6 +4,9 @@ using System;
 public partial class Player : CharacterBody3D
 {
 	[Export]
+	public float Speed { get; set; } = 7f;
+
+	[Export]
 	public float MouseSensitivity { get; set; } = 0.3f;
 
 	[Export]
@@ -75,8 +78,8 @@ public partial class Player : CharacterBody3D
 		_rotationInput = Vector2.Zero;
 	}
 
-	public void ReplaceVelocity(Vector3 value) {
-		_targetVelocity = value;
+	public void Jump(float jumpStrength) {
+		_targetVelocity.Y = jumpStrength;
 	}
 
 	public void UpdateGravity(double delta)
@@ -88,15 +91,15 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	public void UpdateInput(float speed, float acceleration, float deceleration) // maybe change float -> double later
+	public void UpdateInput(float speedMuptiplier, float acceleration, float deceleration) // maybe change float -> double later
 	{
 		var inputDirection = Input.GetVector("move_left", "move_right", "move_forward", "move_backward");
 		var direction = (Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y)).Normalized();
 
 		if (direction.Length() > 1e-9)
 		{
-			_targetVelocity.X = Mathf.Lerp(_targetVelocity.X, direction.X * speed, acceleration);
-			_targetVelocity.Z = Mathf.Lerp(_targetVelocity.Z, direction.Z * speed, acceleration);
+			_targetVelocity.X = Mathf.Lerp(_targetVelocity.X, direction.X * Speed * speedMuptiplier, acceleration);
+			_targetVelocity.Z = Mathf.Lerp(_targetVelocity.Z, direction.Z * Speed * speedMuptiplier, acceleration);
 		}
 		else
 		{

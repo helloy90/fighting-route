@@ -4,7 +4,7 @@ using System;
 public partial class SprintingPlayerState : PlayerMovementState
 {
     [Export]
-    public float Speed { get; set; } = 10.0f;
+    public float SpeedMultiplier { get; set; } = 2.0f;
     [Export]
     public float Acceleration { get; set; } = 0.5f;
     [Export]
@@ -29,7 +29,7 @@ public partial class SprintingPlayerState : PlayerMovementState
     public override void PhysicsUpdate(double delta)
     {
         player.UpdateGravity(delta);
-        player.UpdateInput(Speed, Acceleration, Deceleration);
+        player.UpdateInput(SpeedMultiplier, Acceleration, Deceleration);
         player.UpdateVelocity();
     }
 
