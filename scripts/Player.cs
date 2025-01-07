@@ -14,6 +14,9 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public Node3D CameraController;
 
+	private RayCast3D _detector;
+	private Label _infoInteraction;
+
 	private Vector3 _targetVelocity;
 	private float _gravity;
 	// Rotation and tilt from mouse event
@@ -26,11 +29,15 @@ public partial class Player : CharacterBody3D
 	{
 		_targetVelocity = Vector3.Zero;
 		_gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+		_detector = GetNode<Node3D>("HEAD").GetNode<RayCast3D>("Detector");
+		_infoInteraction = GetNode<Label>("InfoInteraction");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateCamera(delta);
+
+		ProcessingInteraction(delta);
 
 		// TODO: move jump logic to an appopriate state
 		// if (Input.IsActionPressed("jump") && IsOnFloor())
@@ -103,5 +110,24 @@ public partial class Player : CharacterBody3D
 	{
 		Velocity = _targetVelocity;
 		MoveAndSlide();
+	}
+
+	private void ProcessingInteraction(double delta){
+		if(_detector.IsColliding()){
+			var obj = _detector.GetCollider();
+
+			if(obj is Interactable){
+				Interactable interactable = obj as Interactable;
+				_infoInteraction.Text = interactable.GetInterfaceText();
+				if(Input.IsActionJustPressed("interact")){
+					interactable.Interact();
+				}
+			} else {
+				_infoInteraction.Text = obj.GetType().ToString();
+			}
+
+		} else {
+			_infoInteraction.Text = "";
+		}
 	}
 }

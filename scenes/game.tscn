@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=7 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
-[ext_resource type="PackedScene" path="res://objects/flashlight.tscn" id="4_mw8je"]
+[ext_resource type="PackedScene" uid="uid://mk5jjg6qcfq0" path="res://objects/flashlight.tscn" id="4_mw8je"]
 [ext_resource type="PackedScene" uid="uid://b7mfgjpsitrc" path="res://levels/test_location2.tscn" id="5_0q6y8"]
 [ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
 [ext_resource type="PackedScene" uid="uid://l1kepw8uwgp0" path="res://objects/scene_elements/wall_1.tscn" id="6_h24d1"]
-[ext_resource type="PackedScene" uid="uid://2itsfax8yr2y" path="res://objects/inventory_object/flash.tscn" id="7_cgxl6"]
-[ext_resource type="PackedScene" uid="uid://b741bvvtn8ik5" path="res://objects/inventory_object/book.tscn" id="8_qxhof"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dmgks")
@@ -27,9 +25,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74677, -10.0234)
 
 [node name="Wall1" parent="World" instance=ExtResource("6_h24d1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 0)
-
-[node name="Flash" parent="World" instance=ExtResource("7_cgxl6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
-
-[node name="book" parent="World" instance=ExtResource("8_qxhof")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 8)

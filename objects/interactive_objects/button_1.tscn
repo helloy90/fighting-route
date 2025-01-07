@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dci6y6crfgcyn"]
+
+[ext_resource type="Script" path="res://scripts/objects/interactable/Button.cs" id="1_enhkg"]
+[ext_resource type="PackedScene" uid="uid://dppvfmmf3ydvv" path="res://models/scene_elements_test/button1.gltf" id="1_w7cft"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qung7"]
+size = Vector3(0.260986, 0.514397, 0.51894)
+
+[node name="Button1" type="Area3D"]
+script = ExtResource("1_enhkg")
+
+[node name="button1" parent="." instance=ExtResource("1_w7cft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00505018, 0.0192814, -0.00924408)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00618839, 0.0185623, -0.0127395)
+shape = SubResource("BoxShape3D_qung7")

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdsrrvyl4hwii"]
-
-[ext_resource type="Script" path="res://scripts/interaction_object/interacting_object.cs" id="1_dhjro"]
-
-[node name="InteractingObject" type="Node3D"]
-script = ExtResource("1_dhjro")
