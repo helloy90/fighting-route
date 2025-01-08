@@ -9,3 +9,4 @@
 transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 4.82447, 0.926855, 2.12603)
 
 [node name="tunnel" parent="." instance=ExtResource("1_a4c05")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

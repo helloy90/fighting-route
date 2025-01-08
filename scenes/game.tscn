@@ -14,10 +14,10 @@ script = ExtResource("1_dmgks")
 [node name="World" type="Node3D" parent="."]
 
 [node name="Tunnel" parent="World" instance=ExtResource("7_atw0j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4181, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4181, 4.76379, 0)
 
 [node name="Player" parent="World" instance=ExtResource("2_13pr1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99725, 2.4, 0)
 
 [node name="flashlight" parent="World" instance=ExtResource("4_mw8je")]
 transform = Transform3D(-0.118723, -0.215406, -0.969281, 0.0396452, 0.974378, -0.221395, 0.992136, -0.0647118, -0.107141, 7.65971, 2.00191, 11.3435)
