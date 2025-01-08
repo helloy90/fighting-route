@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=8 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
@@ -6,17 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://b7mfgjpsitrc" path="res://levels/test_location2.tscn" id="5_0q6y8"]
 [ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
 [ext_resource type="PackedScene" uid="uid://l1kepw8uwgp0" path="res://objects/scene_elements/wall_1.tscn" id="6_h24d1"]
+[ext_resource type="PackedScene" uid="uid://etgkn67lnyg6" path="res://objects/scene_elements/tunnel.tscn" id="7_atw0j"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dmgks")
 
 [node name="World" type="Node3D" parent="."]
 
+[node name="Tunnel" parent="World" instance=ExtResource("7_atw0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4181, 3.5, 0)
+
 [node name="Player" parent="World" instance=ExtResource("2_13pr1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="flashlight" parent="World" instance=ExtResource("4_mw8je")]
-transform = Transform3D(-0.998619, 0, -0.0525451, 0, 1, 0, 0.0525451, 0, -0.998619, 0, 2.00191, 2.61085)
+transform = Transform3D(-0.118723, -0.215406, -0.969281, 0.0396452, 0.974378, -0.221395, 0.992136, -0.0647118, -0.107141, 7.65971, 2.00191, 11.3435)
 
 [node name="gun1" parent="World" instance=ExtResource("5_5ubpc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74677, -10.0234)

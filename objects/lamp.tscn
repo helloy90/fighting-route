@@ -6,7 +6,8 @@
 
 [node name="OmniLight3D" type="OmniLight3D" parent="lamp" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
-light_energy = 2.619
+light_color = Color(1, 0.828809, 0.436507, 1)
+light_energy = 2.817
 light_indirect_energy = 2.13
 omni_range = 25.0
 omni_attenuation = 0.517
