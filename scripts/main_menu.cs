@@ -1,14 +1,12 @@
 using Godot;
 using System;
 
-public partial class UserInterface : Control
+public partial class main_menu : Control
 {
-
-	private Label _interactionLabel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_interactionLabel = GetNode<Label>("interaction");
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +14,9 @@ public partial class UserInterface : Control
 	{
 	}
 
-	private void outputInfoInteractableObj(string type, string label, string description){
-		_interactionLabel.Text = type;
+
+
+	private void play(){
+		GetTree().ChangeSceneToFile("res://scenes/game.tscn");
 	}
 }

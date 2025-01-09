@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmer4ne6cha65"]
+[gd_scene load_steps=5 format=3 uid="uid://cmer4ne6cha65"]
 
 [ext_resource type="Theme" uid="uid://dkft1q07bddb1" path="res://style/main_menu.tres" id="1_ylgv8"]
 [ext_resource type="Shader" path="res://shaders/main_menu/theme1.gdshader" id="2_a6otu"]
+[ext_resource type="Script" path="res://scripts/main_menu.cs" id="2_bejgk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j7hly"]
 shader = ExtResource("2_a6otu")
@@ -16,6 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ylgv8")
+script = ExtResource("2_bejgk")
 
 [node name="background" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_j7hly")
@@ -24,7 +26,7 @@ offset_right = 1161.0
 offset_bottom = 655.0
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="margin_container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -33,14 +35,14 @@ offset_top = -278.0
 offset_right = 464.0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="margin_container"]
 layout_mode = 2
 
-[node name="play_button_game" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="play_button_game" type="Button" parent="margin_container/VBoxContainer"]
 layout_mode = 2
 text = "Play"
 
-[node name="Label" type="Label" parent="."]
+[node name="game_title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -51,3 +53,5 @@ offset_right = 184.0
 offset_bottom = 183.0
 grow_horizontal = 2
 text = "Fighting route"
+
+[connection signal="pressed" from="margin_container/VBoxContainer/play_button_game" to="." method="play"]

@@ -35,3 +35,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 0)
 [node name="UserInterface" parent="." instance=ExtResource("8_71uyg")]
 mouse_filter = 1
 script = ExtResource("9_iv4ly")
+
+[connection signal="Interaction" from="World/Player" to="UserInterface" method="outputInfoInteractableObj"]
