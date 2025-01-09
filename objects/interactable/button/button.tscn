@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4dgcwee7uuh8"]
+
+[ext_resource type="Script" path="res://scripts/objects/interactable/Button.cs" id="1_qwlk0"]
+
+[node name="Button" type="Node"]
+script = ExtResource("1_qwlk0")

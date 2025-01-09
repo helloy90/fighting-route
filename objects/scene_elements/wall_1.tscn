@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ds3f0ho8mbiku" path="res://models/scene_elements_test/wall1.gltf" id="1_dkweu"]
 [ext_resource type="PackedScene" uid="uid://dqelnq1i47t6d" path="res://objects/scene_elements/lightning_lamp.tscn" id="3_2yoe1"]
-[ext_resource type="PackedScene" uid="uid://dci6y6crfgcyn" path="res://objects/interactive_objects/button_1.tscn" id="3_mim7o"]
+[ext_resource type="PackedScene" uid="uid://frm5mgogyb4a" path="res://objects/interactable/button/simple_button.tscn" id="3_icpu6"]
 
 [node name="wall1" type="Node3D"]
 
@@ -12,15 +12,4 @@ physics_interpolation_mode = 2
 [node name="lightning_lamp" parent="." instance=ExtResource("3_2yoe1")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0.383815, 3.67618, -0.231119)
 
-[node name="Button1" parent="." instance=ExtResource("3_mim7o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291596, 1.29303, -0.260413)
-_name = "Кнопка"
-_description = "Кнопка для чего-то"
-_interfaceText = "(Кнопка) Нажмите E"
-
-[node name="TestInfo" type="Label" parent="Button1"]
-offset_left = 487.0
-offset_top = 189.0
-offset_right = 904.0
-offset_bottom = 379.0
-size_flags_horizontal = 4
+[node name="simple_button" parent="." instance=ExtResource("3_icpu6")]

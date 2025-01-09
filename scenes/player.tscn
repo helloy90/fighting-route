@@ -50,9 +50,3 @@ script = ExtResource("5_em66i")
 
 [node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("7_on00m")
-
-[node name="InfoInteraction" type="Label" parent="."]
-offset_right = 687.0
-offset_bottom = 342.0
-size_flags_horizontal = 0
-size_flags_vertical = 8

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=10 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
 [ext_resource type="PackedScene" uid="uid://l1kepw8uwgp0" path="res://objects/scene_elements/wall_1.tscn" id="6_h24d1"]
 [ext_resource type="PackedScene" uid="uid://etgkn67lnyg6" path="res://objects/scene_elements/tunnel.tscn" id="7_atw0j"]
+[ext_resource type="PackedScene" uid="uid://bee5mbrhm8a0x" path="res://scenes/user_interface.tscn" id="8_71uyg"]
+[ext_resource type="Script" path="res://scripts/UserInterface.cs" id="9_iv4ly"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_dmgks")
@@ -29,3 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74677, -10.0234)
 
 [node name="Wall1" parent="World" instance=ExtResource("6_h24d1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 0)
+
+[node name="UserInterface" parent="." instance=ExtResource("8_71uyg")]
+mouse_filter = 1
+script = ExtResource("9_iv4ly")

@@ -3,6 +3,9 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
+	[Signal]
+	public delegate void InteractionEventHandler(string type, string label, string description);
+
 	[Export]
 	public float Speed { get; set; } = 7f;
 
@@ -17,9 +20,6 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public Node3D CameraController;
 
-	private RayCast3D _detector;
-	private Label _infoInteraction;
-
 	private Vector3 _targetVelocity;
 	private float _gravity;
 	// Rotation and tilt from mouse event
@@ -28,20 +28,20 @@ public partial class Player : CharacterBody3D
 	private Vector3 _cameraRotation;
 	private Vector3 _playerRotation;
 
+	private RayCast3D _detector;
+
 	public override void _Ready()
 	{
 		_targetVelocity = Vector3.Zero;
 		_gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
-		_detector = GetNode<Node3D>("HEAD").GetNode<RayCast3D>("Detector");
-		_infoInteraction = GetNode<Label>("InfoInteraction");
+		_detector = GetNode("HEAD").GetNode<RayCast3D>("Detector");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		UpdateCamera(delta);
 
-		ProcessingInteraction(delta);
-
+		interactionProcessing(delta);
 		// TODO: move jump logic to an appopriate state
 		// if (Input.IsActionPressed("jump") && IsOnFloor())
 		// {
@@ -78,7 +78,8 @@ public partial class Player : CharacterBody3D
 		_rotationInput = Vector2.Zero;
 	}
 
-	public void Jump(float jumpStrength) {
+	public void Jump(float jumpStrength)
+	{
 		_targetVelocity.Y = jumpStrength;
 	}
 
@@ -115,22 +116,15 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 	}
 
-	private void ProcessingInteraction(double delta){
+	private void interactionProcessing(double delta){
 		if(_detector.IsColliding()){
 			var obj = _detector.GetCollider();
-
 			if(obj is Interactable){
-				Interactable interactable = obj as Interactable;
-				_infoInteraction.Text = interactable.GetInterfaceText();
-				if(Input.IsActionJustPressed("interact")){
-					interactable.Interact();
-				}
+				var interactObj = obj as Interactable;
+				EmitSignal(SignalName.Interaction, interactObj.GetTypeObj(), interactObj.GetLabel(), interactObj.GetDescription());
 			} else {
-				_infoInteraction.Text = obj.GetType().ToString();
+				EmitSignal(SignalName.Interaction, "none", "none", "none");
 			}
-
-		} else {
-			_infoInteraction.Text = "";
 		}
 	}
 }

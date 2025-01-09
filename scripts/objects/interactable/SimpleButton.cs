@@ -1,10 +1,8 @@
 using Godot;
 using System;
 
-public partial class Button : Node
+public partial class SimpleButton : Button
 {
-	[Signal]
-	public delegate void InteractButtonEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

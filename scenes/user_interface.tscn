@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bee5mbrhm8a0x"]
+[gd_scene load_steps=2 format=3 uid="uid://bee5mbrhm8a0x"]
+
+[ext_resource type="Theme" uid="uid://b86l3rcrwnyoi" path="res://style/user_interface.tres" id="1_dj0dt"]
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -7,3 +9,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_dj0dt")
+
+[node name="interaction" type="Label" parent="."]
+layout_mode = 1
+offset_right = 248.0
+offset_bottom = 33.0
+
+[node name="prompt" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -33.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
