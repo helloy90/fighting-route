@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://l1kepw8uwgp0"]
 
 [ext_resource type="PackedScene" uid="uid://ds3f0ho8mbiku" path="res://models/scene_elements_test/wall1.gltf" id="1_dkweu"]
-[ext_resource type="PackedScene" uid="uid://dqelnq1i47t6d" path="res://objects/scene_elements/lightning_lamp.tscn" id="3_2yoe1"]
+[ext_resource type="PackedScene" uid="uid://dqelnq1i47t6d" path="res://objects/scene_elements_test/lightning_lamp.tscn" id="3_2yoe1"]
 [ext_resource type="PackedScene" uid="uid://frm5mgogyb4a" path="res://objects/interactable/button/simple_button.tscn" id="3_icpu6"]
 
 [node name="wall1" type="Node3D"]

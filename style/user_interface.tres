@@ -1,9 +1,13 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b86l3rcrwnyoi"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b86l3rcrwnyoi"]
 
 [ext_resource type="FontFile" uid="uid://c4xl0exy45pfs" path="res://style/fonts/ebbe.ttf" id="1_hwv36"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3u47n"]
+bg_color = Color(0.462291, 0.462291, 0.46229, 0.45098)
 
 [resource]
 default_font = ExtResource("1_hwv36")
 default_font_size = 16
-Label/font_sizes/font_size = 32
+Label/font_sizes/font_size = 25
 Label/fonts/font = ExtResource("1_hwv36")
+Panel/styles/panel = SubResource("StyleBoxFlat_3u47n")

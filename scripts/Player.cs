@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody3D
 {
 	[Signal]
-	public delegate void InteractionEventHandler(string type, string label, string description);
+	public delegate void InteractionEventHandler(string type, string label, string description, string prompt);
 
 	[Export]
 	public float Speed { get; set; } = 7f;
@@ -121,9 +121,12 @@ public partial class Player : CharacterBody3D
 			var obj = _detector.GetCollider();
 			if(obj is Interactable){
 				var interactObj = obj as Interactable;
-				EmitSignal(SignalName.Interaction, interactObj.GetTypeObj(), interactObj.GetLabel(), interactObj.GetDescription());
+				EmitSignal(SignalName.Interaction, interactObj.GetTypeObj(), interactObj.GetLabel(), interactObj.GetDescription(), interactObj.GetPrompt());
+				if(Input.IsActionJustPressed("interact")){
+					interactObj.Interact();
+				}
 			} else {
-				EmitSignal(SignalName.Interaction, "none", "none", "none");
+				EmitSignal(SignalName.Interaction, "none", "none", "none", "none");
 			}
 		}
 	}

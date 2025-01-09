@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://bee5mbrhm8a0x"]
+[gd_scene load_steps=7 format=3 uid="uid://bee5mbrhm8a0x"]
 
 [ext_resource type="Theme" uid="uid://b86l3rcrwnyoi" path="res://style/user_interface.tres" id="1_dj0dt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kd53s"]
+bg_color = Color(0.252028, 0.252028, 0.252028, 0.470588)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kuil2"]
+bg_color = Color(0.25098, 0.25098, 0.25098, 0.52549)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulpat"]
+bg_color = Color(0.25098, 0.25098, 0.25098, 0.545098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycmnj"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwrc7"]
+bg_color = Color(1, 1, 1, 0)
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -9,22 +24,122 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("1_dj0dt")
 
-[node name="interaction" type="Label" parent="."]
+[node name="main_info_panel" type="Panel" parent="."]
 layout_mode = 1
-offset_right = 248.0
-offset_bottom = 33.0
+offset_right = 270.0
+offset_bottom = 133.0
 
-[node name="prompt" type="Label" parent="."]
+[node name="hp_panel" type="Panel" parent="main_info_panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 266.0
+offset_bottom = 42.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kd53s")
+
+[node name="hp" type="ProgressBar" parent="main_info_panel/hp_panel"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 7.0
+offset_right = 256.0
+offset_bottom = 28.0
+value = 12.0
+
+[node name="hp_label" type="Label" parent="main_info_panel/hp_panel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 52.0
+offset_bottom = 36.0
+text = "HP"
+
+[node name="weapon_panel" type="Panel" parent="main_info_panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 46.0
+offset_right = 265.0
+offset_bottom = 81.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kuil2")
+
+[node name="weapon" type="Label" parent="main_info_panel/weapon_panel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 6.0
+offset_right = 85.0
+offset_bottom = 35.0
+text = "Weapon:"
+
+[node name="type_weapon" type="Label" parent="main_info_panel/weapon_panel"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 5.0
+offset_right = 254.0
+offset_bottom = 38.0
+text = "plasma pistol"
+
+[node name="damage_panel" type="Panel" parent="main_info_panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 85.0
+offset_right = 267.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ulpat")
+
+[node name="damage" type="Label" parent="main_info_panel/damage_panel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 30.0
+text = "Damage:"
+
+[node name="value" type="Label" parent="main_info_panel/damage_panel"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 4.0
+offset_right = 230.0
+offset_bottom = 37.0
+text = "12"
+
+[node name="prompt_panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -33.0
-offset_right = 20.0
-grow_horizontal = 2
+offset_top = -66.0
+offset_right = 309.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ycmnj")
+
+[node name="prompt" type="Label" parent="prompt_panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+
+[node name="interaction_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -293.0
+offset_top = -115.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wwrc7")
+
+[node name="interaction" type="Label" parent="interaction_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -254.0
+offset_top = -40.0
+grow_horizontal = 0
 grow_vertical = 0

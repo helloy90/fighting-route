@@ -39,4 +39,10 @@ public partial class SimpleButtonArea : Area3D, Interactable
     {
         return "button";
     }
+
+    public string GetPrompt()
+    {
+        return "dhfg";
+    }
+
 }

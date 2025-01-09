@@ -1,16 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=11 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
 [ext_resource type="PackedScene" uid="uid://mk5jjg6qcfq0" path="res://objects/flashlight.tscn" id="4_mw8je"]
 [ext_resource type="PackedScene" uid="uid://b7mfgjpsitrc" path="res://levels/test_location2.tscn" id="5_0q6y8"]
 [ext_resource type="PackedScene" uid="uid://b1goh5vv2ek26" path="res://objects/weapons/gun1.tscn" id="5_5ubpc"]
-[ext_resource type="PackedScene" uid="uid://l1kepw8uwgp0" path="res://objects/scene_elements/wall_1.tscn" id="6_h24d1"]
-[ext_resource type="PackedScene" uid="uid://etgkn67lnyg6" path="res://objects/scene_elements/tunnel.tscn" id="7_atw0j"]
+[ext_resource type="PackedScene" uid="uid://l1kepw8uwgp0" path="res://objects/scene_elements_test/wall_1.tscn" id="6_h24d1"]
+[ext_resource type="PackedScene" uid="uid://etgkn67lnyg6" path="res://objects/scene_elements_test/tunnel.tscn" id="7_atw0j"]
 [ext_resource type="PackedScene" uid="uid://bee5mbrhm8a0x" path="res://scenes/user_interface.tscn" id="8_71uyg"]
-[ext_resource type="Script" path="res://scripts/UserInterface.cs" id="9_iv4ly"]
+[ext_resource type="PackedScene" uid="uid://4cn5dosm725a" path="res://objects/interactable/switch/toggle.tscn" id="8_cbbv4"]
+[ext_resource type="Script" path="res://scripts/user_interface.cs" id="9_iv4ly"]
 
 [node name="Game" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.20245, 0)
 script = ExtResource("1_dmgks")
 
 [node name="World" type="Node3D" parent="."]
@@ -32,8 +34,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74677, -10.0234)
 [node name="Wall1" parent="World" instance=ExtResource("6_h24d1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 0)
 
-[node name="UserInterface" parent="." instance=ExtResource("8_71uyg")]
-mouse_filter = 1
+[node name="toggle1" parent="World" instance=ExtResource("8_cbbv4")]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 0, 2.56409, 28.9965)
+key = 1
+_label = "Переключатель света"
+_description = "Переключает свет"
+_prompt = "Нажмите Е"
+
+[node name="user_interface" parent="." instance=ExtResource("8_71uyg")]
 script = ExtResource("9_iv4ly")
 
-[connection signal="Interaction" from="World/Player" to="UserInterface" method="outputInfoInteractableObj"]
+[connection signal="Interaction" from="World/Player" to="user_interface" method="outputInfoInteractableObj"]
