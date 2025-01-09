@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bya6bj6ooudby"]
+[gd_scene load_steps=12 format=3 uid="uid://bya6bj6ooudby"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_dmgks"]
 [ext_resource type="PackedScene" uid="uid://dl2l6aox40da3" path="res://scenes/player.tscn" id="2_13pr1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bee5mbrhm8a0x" path="res://scenes/user_interface.tscn" id="8_71uyg"]
 [ext_resource type="PackedScene" uid="uid://4cn5dosm725a" path="res://objects/interactable/switch/toggle.tscn" id="8_cbbv4"]
 [ext_resource type="Script" path="res://scripts/user_interface.cs" id="9_iv4ly"]
+[ext_resource type="PackedScene" uid="uid://by5jlihv2esse" path="res://objects/luminaire_togger.tscn" id="9_vsu0o"]
 
 [node name="Game" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.20245, 0)
@@ -41,7 +42,12 @@ _label = "Переключатель света"
 _description = "Переключает свет"
 _prompt = "Нажмите Е"
 
+[node name="luminaire_togger" parent="World" instance=ExtResource("9_vsu0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.28219, 28.8895)
+_key = 1
+
 [node name="user_interface" parent="." instance=ExtResource("8_71uyg")]
 script = ExtResource("9_iv4ly")
 
 [connection signal="Interaction" from="World/Player" to="user_interface" method="outputInfoInteractableObj"]
+[connection signal="Toggle" from="World/toggle1" to="World/luminaire_togger" method="switchLight"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://by5jlihv2esse"]
+
+[ext_resource type="PackedScene" uid="uid://dq6gb1ye6lcff" path="res://models/scene_elements_test/body_for_lightning_lamp.gltf" id="1_bfr82"]
+[ext_resource type="Script" path="res://scripts/objects/luminaire_togger.cs" id="1_djhqx"]
+[ext_resource type="PackedScene" uid="uid://d1t3bncbvpljk" path="res://models/scene_elements_test/part_2_lamp1_0.gltf" id="2_42drb"]
+
+[node name="luminaire_togger" type="Node3D"]
+script = ExtResource("1_djhqx")
+
+[node name="light" type="OmniLight3D" parent="."]
+light_energy = 0.0
+
+[node name="body" parent="." instance=ExtResource("1_bfr82")]
+transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="lamp" parent="." instance=ExtResource("2_42drb")]
+transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
