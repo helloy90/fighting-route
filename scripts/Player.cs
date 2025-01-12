@@ -29,6 +29,7 @@ public partial class Player : CharacterBody3D
 	private Vector3 _playerRotation;
 
 	private RayCast3D _detector;
+	private bool _send_interaction = false;
 
 	public override void _Ready()
 	{
@@ -125,8 +126,13 @@ public partial class Player : CharacterBody3D
 				if(Input.IsActionJustPressed("interact")){
 					interactObj.Interact();
 				}
+				_send_interaction = true;
 			} else {
-				EmitSignal(SignalName.Interaction, "none", "none", "none", "none");
+				if(_send_interaction){
+					_send_interaction = false;
+					EmitSignal(SignalName.Interaction, "", "", "", "");
+				}
+				
 			}
 		}
 	}

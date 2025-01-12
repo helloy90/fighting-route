@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuwguag2risbm"]
+
+[ext_resource type="Shader" path="res://shaders/objects/black_hole.gdshader" id="1_520p8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghjan"]
+render_priority = 0
+shader = ExtResource("1_520p8")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kcl4r"]
+material = SubResource("ShaderMaterial_ghjan")
+radial_segments = 32
+
+[node name="black_hole" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kcl4r")

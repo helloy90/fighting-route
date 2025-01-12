@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs3rrgiogd8q"]
+
+[ext_resource type="PackedScene" uid="uid://djj2y34fpbn72" path="res://models/scene_elements_test/tunnel1.1.gltf" id="1_oroam"]
+
+[node name="tunnel_test" type="Node3D"]
+
+[node name="tunnel1_1" parent="." instance=ExtResource("1_oroam")]
