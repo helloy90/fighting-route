@@ -8,9 +8,9 @@ public partial class PlayerMovementState : State
 
     public Player player;
 
-    public override async void _Ready()
+    public override /*async*/ void _Ready()
     {
-        await ToSignal(Owner, SignalName.Ready);
-        player = Owner as Player;
+        // await ToSignal(Owner, SignalName.Ready);
+        // player = Owner as Player;
     }
 }

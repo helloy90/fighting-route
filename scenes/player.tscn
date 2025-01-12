@@ -1,11 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl2l6aox40da3"]
+[gd_scene load_steps=4 format=3 uid="uid://dl2l6aox40da3"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_bhrlg"]
-[ext_resource type="Script" path="res://scripts/PlayerStates/PlayerStateMachine.cs" id="2_mmhn8"]
-[ext_resource type="Script" path="res://scripts/PlayerStates/IdlePlayerState.cs" id="3_dq24r"]
-[ext_resource type="Script" path="res://scripts/PlayerStates/WalkingPlayerState.cs" id="4_ppss3"]
-[ext_resource type="Script" path="res://scripts/PlayerStates/SprintingPlayerState.cs" id="5_em66i"]
-[ext_resource type="Script" path="res://scripts/PlayerStates/JumpingPlayerState.cs" id="7_on00m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_247jx"]
 
@@ -17,6 +12,8 @@ height = 1.8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 floor_block_on_wall = false
 script = ExtResource("1_bhrlg")
+Acceleration = 7.0
+Deceleration = 5.0
 CameraController = NodePath("HEAD")
 
 [node name="HEAD" type="Node3D" parent="."]
@@ -35,18 +32,12 @@ mesh = SubResource("CapsuleMesh_247jx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_r1als")
 
-[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState")]
-script = ExtResource("2_mmhn8")
-currentState = NodePath("IdlePlayerState")
+[node name="PlayerStateMachine" type="Node" parent="."]
 
 [node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("3_dq24r")
 
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("4_ppss3")
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("5_em66i")
 
 [node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
-script = ExtResource("7_on00m")

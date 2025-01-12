@@ -15,22 +15,9 @@ public partial class SprintingPlayerState : PlayerMovementState
 
     public override void Update(double delta)
     {
-        if (Input.IsActionJustReleased("sprint"))
-        {
-            EmitSignal(SignalName.Transition, "WalkingPlayerState");
-        }
-        
-        if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
-        {
-            EmitSignal(SignalName.Transition, "JumpingPlayerState");
-        }
     }
 
     public override void PhysicsUpdate(double delta)
     {
-        player.UpdateGravity(delta);
-        player.UpdateInput(SpeedMultiplier, Acceleration, Deceleration);
-        player.UpdateVelocity();
     }
-
 }
