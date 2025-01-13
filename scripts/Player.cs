@@ -1,27 +1,37 @@
 using Godot;
 using System;
-using System.ComponentModel.Design.Serialization;
 
 public partial class Player : CharacterBody3D
 {
 	[Signal]
 	public delegate void InteractionEventHandler(string type, string label, string description, string prompt);
 
-	[Export]
+	[Export(PropertyHint.Range, "0,15,or_greater,suffix:m/s\u00b2")]
+	private float Gravity { get; set; } = 12f; // zero for default engine value, manual input for more than 12
+	[Export(PropertyHint.None, "suffix:m/s")]
+	private Vector3 MaxGravityVector { get; set; } = new Vector3(25, 25, 25); // for clamping gravity speed (simulate air resistance)
+
+	[Export(PropertyHint.None, "suffix:m/s")]
 	private float BaseSpeed { get; set; } = 10f;
 	[Export]
-	private float SprintMultiplier { get; set; } = 1.7f;
-	[Export]
+	private float SprintSpeedMultiplier { get; set; } = 1.7f;
+	[Export(PropertyHint.None, "suffix:m/s\u00b2")]
 	private float Acceleration { get; set; } = 10f;
-	[Export]
+	[Export(PropertyHint.None, "suffix:m/s\u00b2")]
 	private float Deceleration { get; set; } = 10f;
+	[Export(PropertyHint.None, "suffix:s")]
+	private float DashCooldownTime { get; set; } = 0.5f; // seconds
+	[Export(PropertyHint.None, "suffix:s")]
+	private float InDashTime { get; set; } = 0.1f; // seconds, always less than dash cooldown
 	[Export]
-	private float JumpStrength { get; set; } = 4.5f;
+	private float DashSpeedMultipliter { get; set; } = 3f;
+	[Export]
+	private float JumpStrength { get; set; } = 6f;
 	[Export(PropertyHint.Range, "0.1,1.0,0.01")]
 	private float InputInJumpMultiplier { get; set; } = 0.5f;
-	[Export]
+	[Export(PropertyHint.Range, "-90,90,degrees")]
 	private float TiltLowerLimitDegrees { get; set; } = -90;
-	[Export]
+	[Export(PropertyHint.Range, "-90,90,degrees")]
 	private float TiltUpperLimitDegrees { get; set; } = 90;
 
 	[Export]
@@ -33,13 +43,14 @@ public partial class Player : CharacterBody3D
 	// maybe reconsider properties later
 	public float CurrentSpeed => BaseSpeed * _currentSpeedMultiplier;
 	private float _currentSpeedMultiplier;
-
+	private float _dashTime;
 	private float _tiltLowerLimit;
 	private float _tiltUpperLimit;
 
 	private Vector3 _mainMovement;
 	private Vector3 _gravityDirection;
 	private float _gravityValue;
+	private Vector3 _dashDirection;
 
 	// Rotation and tilt from mouse event
 	private Vector2 _rotationInput;
@@ -53,17 +64,19 @@ public partial class Player : CharacterBody3D
 	private bool _updateCamera;
 	private bool _jumped;
 	private bool _isInAir;
+	private bool _dashed;
 
 	public override void _Ready()
 	{
 		_currentSpeedMultiplier = 1;
+		_dashTime = 0;
 
 		_tiltLowerLimit = Mathf.DegToRad(TiltLowerLimitDegrees);
 		_tiltUpperLimit = Mathf.DegToRad(TiltUpperLimitDegrees);
 
 		_mainMovement = Vector3.Zero;
 		_gravityDirection = Vector3.Zero;
-		_gravityValue = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+		_gravityValue = Mathf.IsZeroApprox(Gravity) ? (float)ProjectSettings.GetSetting("physics/3d/default_gravity") : Gravity;
 
 		_rotationInput = Vector2.Zero;
 		_mouseRotation = Vector3.Zero;
@@ -73,6 +86,7 @@ public partial class Player : CharacterBody3D
 		_updateCamera = false;
 		_jumped = false;
 		_isInAir = false;
+		_dashed = false;
 
 		_detector = GetNode("HEAD").GetNode<RayCast3D>("Detector");
 	}
@@ -139,6 +153,7 @@ public partial class Player : CharacterBody3D
 		{
 			_isInAir = true;
 			_gravityDirection += Vector3.Down * _gravityValue * (float)delta;
+			_gravityDirection = _gravityDirection.Clamp(-MaxGravityVector, MaxGravityVector);
 		}
 
 		if (Input.IsActionJustPressed("jump") && !_isInAir)
@@ -148,10 +163,12 @@ public partial class Player : CharacterBody3D
 			_gravityDirection = Vector3.Up * JumpStrength;
 		}
 
-		if (Input.IsActionPressed("sprint") && !_isInAir) {
-			_currentSpeedMultiplier = SprintMultiplier;
+		if (Input.IsActionPressed("sprint") && !_isInAir)
+		{
+			_currentSpeedMultiplier = SprintSpeedMultiplier;
 		}
-		if (Input.IsActionJustReleased("sprint")) {
+		if (Input.IsActionJustReleased("sprint"))
+		{
 			_currentSpeedMultiplier = 1;
 		}
 
@@ -167,8 +184,44 @@ public partial class Player : CharacterBody3D
 			}
 		}
 
+		if (Input.IsActionJustPressed("dash") && !_dashed)
+		{
+			_dashed = true;
+
+
+			if (direction.Length() > 1e-9)
+			{
+				_dashDirection = direction;
+			}
+			else
+			{
+				_dashDirection = (Basis * Vector3.Forward).Normalized();
+			}
+		}
+
+		if (_dashed)
+		{
+			_dashTime += (float)delta;
+			if (_dashTime < InDashTime)
+			{
+				_currentSpeedMultiplier = DashSpeedMultipliter;
+				_mainMovement = _dashDirection * CurrentSpeed;
+				_gravityDirection = Vector3.Zero;
+			}
+			else if (Mathf.IsEqualApprox(_dashTime, InDashTime))
+			{
+				_currentSpeedMultiplier = 1;
+			}
+			if (Mathf.IsEqualApprox(_dashTime, DashCooldownTime))
+			{
+				_dashed = false;
+				_dashTime = 0;
+			}
+		}
+
 		// Final update 
 		Velocity = _mainMovement + _gravityDirection;
+		GD.Print(Velocity, " - velocity");
 		MoveAndSlide();
 	}
 
@@ -186,12 +239,15 @@ public partial class Player : CharacterBody3D
 					interactObj.Interact();
 				}
 				_send_interaction = true;
-			} else {
-				if(_send_interaction){
+			}
+			else
+			{
+				if (_send_interaction)
+				{
 					_send_interaction = false;
 					EmitSignal(SignalName.Interaction, "", "", "", "");
 				}
-				
+
 			}
 		}
 	}
