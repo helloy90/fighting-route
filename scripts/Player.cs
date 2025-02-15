@@ -13,14 +13,14 @@ public partial class Player : CharacterBody3D
 
 	[Export(PropertyHint.None, "suffix:m/s")]
 	private float BaseSpeed { get; set; } = 10f;
-	[Export]
-	private float SprintSpeedMultiplier { get; set; } = 1.7f;
 	[Export(PropertyHint.None, "suffix:m/s\u00b2")]
 	private float Acceleration { get; set; } = 10f;
 	[Export(PropertyHint.None, "suffix:m/s\u00b2")]
 	private float Deceleration { get; set; } = 10f;
+	// [Export]
+	// private int AmountOfDashes { get; set; } = 2;
 	[Export(PropertyHint.None, "suffix:s")]
-	private float DashCooldownTime { get; set; } = 0.5f; // seconds
+	private float DashCooldownTime { get; set; } = 1f;
 	[Export(PropertyHint.None, "suffix:s")]
 	private float InDashTime { get; set; } = 0.1f; // seconds, always less than dash cooldown
 	[Export]
@@ -28,7 +28,7 @@ public partial class Player : CharacterBody3D
 	[Export]
 	private float JumpStrength { get; set; } = 6f;
 	[Export(PropertyHint.Range, "0.1,1.0,0.01")]
-	private float InputInJumpMultiplier { get; set; } = 0.5f;
+	private float InputInAirMultiplier { get; set; } = 0.5f;
 	[Export(PropertyHint.Range, "-90,90,degrees")]
 	private float TiltLowerLimitDegrees { get; set; } = -90;
 	[Export(PropertyHint.Range, "-90,90,degrees")]
@@ -43,13 +43,20 @@ public partial class Player : CharacterBody3D
 	// maybe reconsider properties later
 	public float CurrentSpeed => BaseSpeed * _currentSpeedMultiplier;
 	private float _currentSpeedMultiplier;
-	private float _dashTime;
+	private float _currentAccelerationMultiplier;
+	public float CurrentAcceleration => Acceleration * _currentAccelerationMultiplier;
+
+	private float _inDashTime;
+	private float _dashCooldownTime;
+	// private int _currentDashesAmount;
+
 	private float _tiltLowerLimit;
 	private float _tiltUpperLimit;
 
 	private Vector3 _mainMovement;
 	private Vector3 _gravityDirection;
 	private float _gravityValue;
+
 	private Vector3 _dashDirection;
 
 	// Rotation and tilt from mouse event
@@ -64,12 +71,13 @@ public partial class Player : CharacterBody3D
 	private bool _updateCamera;
 	private bool _jumped;
 	private bool _isInAir;
-	private bool _dashed;
 
 	public override void _Ready()
 	{
 		_currentSpeedMultiplier = 1;
-		_dashTime = 0;
+		_inDashTime = 0;
+		_dashCooldownTime = 0;
+		// _currentDashesAmount = 0;
 
 		_tiltLowerLimit = Mathf.DegToRad(TiltLowerLimitDegrees);
 		_tiltUpperLimit = Mathf.DegToRad(TiltUpperLimitDegrees);
@@ -77,6 +85,7 @@ public partial class Player : CharacterBody3D
 		_mainMovement = Vector3.Zero;
 		_gravityDirection = Vector3.Zero;
 		_gravityValue = Mathf.IsZeroApprox(Gravity) ? (float)ProjectSettings.GetSetting("physics/3d/default_gravity") : Gravity;
+		_dashDirection = Vector3.Zero;
 
 		_rotationInput = Vector2.Zero;
 		_mouseRotation = Vector3.Zero;
@@ -86,7 +95,6 @@ public partial class Player : CharacterBody3D
 		_updateCamera = false;
 		_jumped = false;
 		_isInAir = false;
-		_dashed = false;
 
 		_detector = GetNode("HEAD").GetNode<RayCast3D>("Detector");
 	}
@@ -163,65 +171,58 @@ public partial class Player : CharacterBody3D
 			_gravityDirection = Vector3.Up * JumpStrength;
 		}
 
-		if (Input.IsActionPressed("sprint") && !_isInAir)
-		{
-			_currentSpeedMultiplier = SprintSpeedMultiplier;
-		}
-		if (Input.IsActionJustReleased("sprint"))
-		{
-			_currentSpeedMultiplier = 1;
-		}
-
-		if (direction.Length() > 1e-9)
-		{
-			_mainMovement = _mainMovement.Lerp(direction * CurrentSpeed, Acceleration * (_isInAir ? InputInJumpMultiplier : 1) * (float)delta);
-		}
-		else
+		if (Mathf.IsZeroApprox(direction.Length()))
 		{
 			if (!_isInAir)
 			{
 				_mainMovement = _mainMovement.Lerp(Vector3.Zero, Deceleration * (float)delta);
 			}
 		}
-
-		if (Input.IsActionJustPressed("dash") && !_dashed)
+		else
 		{
-			_dashed = true;
-
-
-			if (direction.Length() > 1e-9)
-			{
-				_dashDirection = direction;
-			}
-			else
-			{
-				_dashDirection = (Basis * Vector3.Forward).Normalized();
-			}
+			_mainMovement = _mainMovement.Lerp(direction * CurrentSpeed, Acceleration * (_isInAir ? InputInAirMultiplier : 1) * (float)delta);
 		}
 
-		if (_dashed)
-		{
-			_dashTime += (float)delta;
-			if (_dashTime < InDashTime)
-			{
-				_currentSpeedMultiplier = DashSpeedMultipliter;
-				_mainMovement = _dashDirection * CurrentSpeed;
-				_gravityDirection = Vector3.Zero;
-			}
-			else if (Mathf.IsEqualApprox(_dashTime, InDashTime))
-			{
-				_currentSpeedMultiplier = 1;
-			}
-			if (Mathf.IsEqualApprox(_dashTime, DashCooldownTime))
-			{
-				_dashed = false;
-				_dashTime = 0;
-			}
-		}
+		// // Dash ------------------------------------
+		// if (Input.IsActionJustPressed("dash") && Mathf.IsZeroApprox(_dashCooldownTime))
+		// {
+		// 	GD.Print("dash begin");
+		// 	_dashCooldownTime = DashCooldownTime;
+		// 	_inDashTime = 0;
+
+		// 	_currentSpeedMultiplier = DashSpeedMultipliter;
+
+		// 	if (Mathf.IsZeroApprox(direction.Length()))
+		// 	{
+		// 		_dashDirection = (Basis * Vector3.Forward).Normalized();
+		// 	}
+		// 	else
+		// 	{
+		// 		_dashDirection = direction;
+		// 	}
+		// }
+
+		// if (!Mathf.IsEqualApprox(_inDashTime, InDashTime))
+		// {
+		// 	_inDashTime = Mathf.Clamp(_inDashTime + (float)delta, 0, InDashTime);
+		// 	_mainMovement = _dashDirection * CurrentSpeed;
+		// }
+		// else if (Mathf.IsEqualApprox(_inDashTime, InDashTime))
+		// {
+		// 	_currentSpeedMultiplier = 1;
+		// 	_mainMovement = _dashDirection * CurrentSpeed;
+		// 	GD.Print("dash end");
+		// }
+
+		// if (!Mathf.IsZeroApprox(_dashCooldownTime))
+		// {
+		// 	_dashCooldownTime = Mathf.Clamp(_dashCooldownTime - (float)delta, 0, DashCooldownTime);
+		// }
+		// GD.Print(Velocity, " - velocity");
+		// // Dash finish -----------------------------
 
 		// Final update 
 		Velocity = _mainMovement + _gravityDirection;
-		GD.Print(Velocity, " - velocity");
 		MoveAndSlide();
 	}
 

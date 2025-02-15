@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmer4ne6cha65"]
+[gd_scene load_steps=5 format=3 uid="uid://cr6y18b7wkgk4"]
 
 [ext_resource type="Theme" uid="uid://dkft1q07bddb1" path="res://style/main_menu.tres" id="1_ylgv8"]
 [ext_resource type="Shader" path="res://shaders/main_menu/theme1.gdshader" id="2_a6otu"]
