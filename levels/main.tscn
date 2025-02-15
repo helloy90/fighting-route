@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0n88eioi628s"]
+
+[ext_resource type="PackedScene" uid="uid://bj8lh365xxdqd" path="res://models/main/area.gltf" id="1_0dxtk"]
+[ext_resource type="PackedScene" uid="uid://dvgx6u26mux84" path="res://objects/main/main_portal.tscn" id="2_e0llo"]
+
+[sub_resource type="Environment" id="Environment_lc85y"]
+background_mode = 1
+
+[node name="main" instance=ExtResource("1_0dxtk")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12, 0.480046)
+light_energy = 0.451
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
+environment = SubResource("Environment_lc85y")
+
+[node name="main_portal" parent="." index="3" instance=ExtResource("2_e0llo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19374, 0)

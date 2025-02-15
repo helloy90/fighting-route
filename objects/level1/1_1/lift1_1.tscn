@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctibo7a7eyh7u"]
+
+[ext_resource type="PackedScene" uid="uid://bh62o550wmeo6" path="res://models/scene_elements_test/loc1-1-lift.gltf" id="1_uj1to"]
+
+[node name="lift" instance=ExtResource("1_uj1to")]
+
+[node name="door_2" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 7.9483, 2.25, -3.33)
